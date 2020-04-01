@@ -20,11 +20,11 @@ global class ApexUtilities{
 	*/
 	global static Map<String, Set<String>> getAllFields(List<String> objectNames){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
-        Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
-        for(String objectName : objectNames){
-            Schema.SObjectType requiredObject = completeSchema.get(objectName);
-            objectVsFieldMap.put(objectName,requiredObject.getDescribe().fields.getMap().keySet());
-        }
+		Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
+		for(String objectName : objectNames){
+		    Schema.SObjectType requiredObject = completeSchema.get(objectName);
+		    objectVsFieldMap.put(objectName,requiredObject.getDescribe().fields.getMap().keySet());
+		}
 		return objectVsFieldMap;
 	}
     
@@ -37,11 +37,11 @@ global class ApexUtilities{
 	global static Set<String> getAllCustomFields(String objectName){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
 		Schema.SObjectType requiredObject = completeSchema.get(objectName);
-        Set<String> customFields = new Set<String>(); 
-        for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
-        	if(field.endsWithIgnoreCase('__c')){
-                customFields.add(field);
-            }
+		Set<String> customFields = new Set<String>(); 
+		for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
+			if(field.endsWithIgnoreCase('__c')){
+			customFields.add(field);
+		    }
         }
         return customFields;
 	}
@@ -54,17 +54,17 @@ global class ApexUtilities{
 	*/
 	global static Map<String, Set<String>> getAllCustomFields(List<String> objectNames){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
-        Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
-        for(String objectName : objectNames){
-            Schema.SObjectType requiredObject = completeSchema.get(objectName);
-            Set<String> customFields = new Set<String>(); 
-            for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
-                if(field.endsWithIgnoreCase('__c')){
-                    customFields.add(field);
-                }
-            }
-            objectVsFieldMap.put(objectName,customFields);
-        }
+		Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
+		for(String objectName : objectNames){
+		    Schema.SObjectType requiredObject = completeSchema.get(objectName);
+		    Set<String> customFields = new Set<String>(); 
+		    for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
+			if(field.endsWithIgnoreCase('__c')){
+			    customFields.add(field);
+			}
+            		}
+		    objectVsFieldMap.put(objectName,customFields);
+		}
 		return objectVsFieldMap;
 	}
     
@@ -77,13 +77,13 @@ global class ApexUtilities{
 	global static Set<String> getAllStandardFields(String objectName){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
 		Schema.SObjectType requiredObject = completeSchema.get(objectName);
-        Set<String> standardFields = new Set<String>(); 
-        for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
-        	if(!field.endsWithIgnoreCase('__c')){
-                standardFields.add(field);
-            }
-        }
-        return standardFields;
+		Set<String> standardFields = new Set<String>(); 
+		for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
+			if(!field.endsWithIgnoreCase('__c')){
+			standardFields.add(field);
+		    }
+		}
+		return standardFields;
 	}
     
     /*
@@ -94,17 +94,17 @@ global class ApexUtilities{
 	*/
 	global static Map<String, Set<String>> getAllStandardFields(List<String> objectNames){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
-        Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
-        for(String objectName : objectNames){
-            Schema.SObjectType requiredObject = completeSchema.get(objectName);
-            Set<String> sFields = new Set<String>(); 
-            for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
-                if(!field.endsWithIgnoreCase('__c')){
-                    sFields.add(field);
-                }
-            }
-            objectVsFieldMap.put(objectName,sFields);
-        }
+		Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
+		for(String objectName : objectNames){
+		    Schema.SObjectType requiredObject = completeSchema.get(objectName);
+		    Set<String> sFields = new Set<String>(); 
+		    for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
+			if(!field.endsWithIgnoreCase('__c')){
+			    sFields.add(field);
+			}
+		    }
+		    objectVsFieldMap.put(objectName,sFields);
+		}
 		return objectVsFieldMap;
 	}
     
@@ -117,13 +117,13 @@ global class ApexUtilities{
     global static Set<String> getAllFieldsInNameSpace(String objectName,String namespace){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
 		Schema.SObjectType requiredObject = completeSchema.get(objectName);
-        Set<String> requiredFields = new Set<String>(); 
-        for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
-        	if(field.startsWithIgnoreCase(namespace+'__')){
-                requiredFields.add(field);
-            }
-        }
-        return requiredFields;
+		Set<String> requiredFields = new Set<String>(); 
+		for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
+			if(field.startsWithIgnoreCase(namespace+'__')){
+			requiredFields.add(field);
+		    }
+		}
+		return requiredFields;
 	}
     
     /*
@@ -134,17 +134,17 @@ global class ApexUtilities{
 	*/
 	global static Map<String, Set<String>> getAllFieldsInNameSpace(List<String> objectNames,String namespace){
 		Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
-        Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
-        for(String objectName : objectNames){
-            Schema.SObjectType requiredObject = completeSchema.get(objectName);
-            Set<String> requiredFields = new Set<String>(); 
-            for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
-                if(field.startsWithIgnoreCase(namespace+'__')){
-                	requiredFields.add(field);
-            	}
-            }
-            objectVsFieldMap.put(objectName,requiredFields);
-        }
+		Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
+		for(String objectName : objectNames){
+		    Schema.SObjectType requiredObject = completeSchema.get(objectName);
+		    Set<String> requiredFields = new Set<String>(); 
+		    for(String field : requiredObject.getDescribe().fields.getMap().keySet()){
+			if(field.startsWithIgnoreCase(namespace+'__')){
+				requiredFields.add(field);
+			}
+		    }
+		    objectVsFieldMap.put(objectName,requiredFields);
+		}
 		return objectVsFieldMap;
 	}
 }
