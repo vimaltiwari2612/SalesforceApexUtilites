@@ -194,6 +194,50 @@ global class ApexUtilities{
         return objectVsFieldMap;
     }
     
+      /*
+*	@methodName = getAllRequiredFields
+*	@return = Set of required fields
+*	@params = object name
+*	@description = Method takes object name as an argument and return all (both custom and standard) fields which are required
+*/
+    global static Set<String> getAllRequiredFields(String objectName){
+        Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
+        Schema.SObjectType requiredObject = completeSchema.get(objectName);            
+        Set<String> requiredFields = new Set<String>();
+        for(Schema.SObjectField field : requiredObject.getDescribe().fields.getMap().values()){
+            Schema.DescribeFieldResult fieldDetails = field.getDescribe();
+            //IF FIELD IS CREATEABLE AND IS NOT NILLABLE AND IS NOT DEFAULTED ON CREATE THEN ITS REQUIRED
+            if(fieldDetails.isCreateable() && !fieldDetails.isNillable() && !fieldDetails.isDefaultedOnCreate()){
+                requiredFields.add(fieldDetails.getName());
+            }
+        }
+        return requiredFields;
+    }
+    
+     /*
+*	@methodName = getAllRequiredFields
+*	@return = Map of object name vs Fields which are required 
+*	@params = list of object name (both custom and standard), and field type like String,Boolean etc
+*	@description = Method takes object name as an argument and return all (both custom and standard) fields which are required
+*/
+    global static Map<String, Set<String>> getAllRequiredFields(List<String> objectNames){
+        Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
+        Map<String, Set<String>> objectVsFieldMap = new Map<String, Set<String>>();
+        for(String objectName : objectNames){
+            Schema.SObjectType requiredObject = completeSchema.get(objectName);            
+            Set<String> requiredFields = new Set<String>();
+            for(Schema.SObjectField field : requiredObject.getDescribe().fields.getMap().values()){
+                Schema.DescribeFieldResult fieldDetails = field.getDescribe();
+                //IF FIELD IS CREATEABLE AND IS NOT NILLABLE AND IS NOT DEFAULTED ON CREATE THEN ITS REQUIRED
+                if(fieldDetails.isCreateable() && !fieldDetails.isNillable() && !fieldDetails.isDefaultedOnCreate()){
+                    requiredFields.add(fieldDetails.getName());
+                }
+                objectVsFieldMap.put(objectName,requiredFields);
+            }
+        }
+        return objectVsFieldMap;
+    }
+    
     /**************************************************** Object Related Methods****************************************************/
     
     
