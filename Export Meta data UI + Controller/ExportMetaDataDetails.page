@@ -1,0 +1,21 @@
+<apex:page controller="ExportMetaDataDetails" >
+    <apex:form>
+        <apex:pageBlock>
+            <apex:pageBlockSection columns="3">
+             
+                <apex:inputText label="Object Name" value="{!objectName}" />
+                <apex:commandButton action="{!getAllCustomFields}" value="get data" rerender="data"/>    
+                    </apex:pageBlockSection>
+        
+    	<apex:pageBlockTable value="{!customFields}" var="t" id="data">
+          
+             <apex:column headerValue="Label" value="{!t.label}" />
+             
+             <apex:column headerValue="API Name" value="{!t.apiname}" />
+           
+            <apex:column headerValue="Type" value="{!t.ftype}" />
+           
+        </apex:pageBlockTable>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

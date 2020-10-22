@@ -1,0 +1,41 @@
+public class ExportMetaDataDetails {
+    
+    public List<field> customFields {get;set;} 
+    public String objectName {get;set;}
+    
+    public void getAllCustomFields(){
+        customFields = new List<field>(); 
+        System.debug('objectName '+objectName);
+        if(objectName == null || objectName == '' || objectName.trim() == '') return;
+        Map<String, Schema.SObjectType> completeSchema = Schema.getGlobalDescribe(); 
+        Schema.SObjectType requiredObject = completeSchema.get(objectName);
+        System.debug('requiredObject '+requiredObject);
+        for(Schema.SObjectField f : requiredObject.getDescribe().fields.getMap().values()){
+            Schema.DescribeFieldResult fq = f.getDescribe();
+            String name = fq.getName();
+            String label = fq.getLabel();
+            String fType = fq.getType().name();
+            if(name.endsWithIgnoreCase('__c')){
+                System.debug(name+' '+label+' '+ftype);
+                customFields.add(new field(label,name,fType));
+            }
+        }
+    }
+    
+    
+    class Field{
+        public String label {get;set;}
+        public String apiname {get;set;}
+        public String fType {get;set;}
+        
+        public Field(String label,String apiname,String fType){
+            this.label=label;
+            this.apiname=apiname;
+            this.fType=fType;
+        }
+        
+    }
+    
+}
+
+
