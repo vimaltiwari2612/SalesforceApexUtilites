@@ -28,7 +28,7 @@ The idea is to join all the trigger contexts of similar types, together. For exa
 ![Trigger idea](https://user-images.githubusercontent.com/22127564/123540521-0aea7500-d75d-11eb-81f4-768b7dad307f.png)
 
 
-**Architechture Overview**
+**Architecture Overview**
 
 ![Image](https://github.com/vimaltiwari2612/SalesforceApexUtilites/blob/master/Trigger%20Framework/TriggerFramework.png)
 
